@@ -1,0 +1,67 @@
+/* TODO:Set optimal font-size and max height of note */
+
+.Note {
+  position: relative;
+  width: 200px;
+  margin: 8px;
+  padding: 10px 10px 40px 10px;
+  background: transparent;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  /* font-size: 12px; */
+}
+.Note-main > h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  padding: 0 0 10px 0;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 100px;
+}
+.Note-main > p {
+  font-size: 2rem;
+  padding-bottom: 10px;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 300px;
+}
+
+.Note-options {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.Note-delete,
+.Note-edit {
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  opacity: 0;
+  transition: all 0.4s;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /*  Subject to change */
+  position: relative;
+  bottom: 5px;
+  font-size: 1.8rem;
+}
+.Note:hover .Note-delete,
+.Note:hover .Note-edit {
+  opacity: 1;
+}
+.Note-delete:hover,
+.Note-edit:hover {
+  background-color: rgba(128, 128, 128, 0.3);
+}

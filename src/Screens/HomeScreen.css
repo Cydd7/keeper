@@ -1,0 +1,8 @@
+.HomeScreen {
+  min-height: 95vh;
+  position: relative;
+  background-color: hsl(225, 6%, 13%);
+
+  /* Giving space to footer */
+  padding-bottom: 40px;
+}

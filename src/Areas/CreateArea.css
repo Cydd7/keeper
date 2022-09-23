@@ -1,0 +1,114 @@
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.Note-form {
+  position: relative;
+  width: 40%;
+  margin: 10% auto 10% auto;
+  border-radius: 7px;
+  box-shadow: 0 5px 5px #0a0a0a;
+  padding: 0 0 60px 0;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  /* Font choose */
+  font-size: 16px;
+}
+.Note-form-editing {
+  width: 100%;
+  min-height: 60vh;
+  box-shadow: none;
+  border: none;
+  margin: 0;
+}
+
+.Note-form-title {
+  font-size: 1.1em;
+  font-weight: 600;
+  position: relative;
+  width: 100%;
+}
+.Note-form-title-back {
+  position: absolute;
+  top: 1vw;
+  left: 1vw;
+}
+.Note-form-title-create {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 7px;
+  padding: 1vw;
+  outline: none;
+
+  word-wrap: break-word;
+  word-break: break-all;
+  -moz-appearance: textfield-multiline;
+  -webkit-appearance: textarea;
+}
+.Note-form-title-create > span,
+.Note-form-title-create > div {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.Note-form-content {
+  position: relative;
+  width: 100%;
+}
+.Note-form-content-back {
+  position: absolute;
+  top: 1vw;
+  left: 1vw;
+}
+.Note-form-content-create {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 7px;
+  padding: 1vw;
+  background: transparent;
+  font-family: "Source Sans Pro", sans-serif;
+  outline: none;
+
+  word-wrap: break-word;
+  word-break: break-all;
+  -moz-appearance: textfield-multiline;
+  -webkit-appearance: textarea;
+
+  /* Check These below ones */
+  -webkit-user-modify: read-write;
+  overflow-wrap: break-word;
+  -webkit-line-break: after-white-space;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+.Note-form-content-create > span,
+.Note-form-content-create > div {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.Note-form-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 7px;
+  width: 7vw;
+  min-width: 50px;
+  height: 30px;
+  background: transparent;
+  transition: all 0.4s;
+}
+
+.Note-form-btn:hover {
+  background-color: rgba(128, 128, 128, 0.3);
+}

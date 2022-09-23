@@ -1,0 +1,31 @@
+/* .notesArea {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.column1 {
+  flex-basis: 45%;
+  max-width: 45%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column-reverse;
+  border: 3px solid firebrick;
+}
+.column2 {
+  flex-basis: 45%;
+  max-width: 45%;
+  justify-content: flex-end;
+
+  display: flex;
+
+  flex-direction: column-reverse;
+  border: 3px solid firebrick;
+} */
+
+.grid {
+  /* width: 100%; */
+  width: 90vw;
+  min-height: 100px;
+  margin: 0 auto;
+}
