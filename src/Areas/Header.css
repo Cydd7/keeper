@@ -1,52 +1,140 @@
 /* TODO: Review flex box */
 
-header {
-  background: linear-gradient(60deg, hsl(44, 92%, 52%), hsl(44, 99%, 31%));
-  font-size: 20px;
+.Header {
+  background: linear-gradient(4deg, hsl(44, 92%, 52%), hsl(44, 99%, 31%));
   padding: 16px 32px;
   display: flex;
   justify-content: space-between;
-}
-header h1 {
-  font-size: 30px;
-  font-weight: 200;
-  flex: 4;
-}
-.Search-bar {
-  flex: 4;
+  align-items: center;
 
-  background-color: #333333;
-  padding: 12px 20px;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 8px 8px #151515;
+  z-index: 999;
+}
+.Header h1 {
+  user-select: none;
+  font-size: 36px;
+  font-weight: 400;
+  flex: 4;
+  color: #444;
+}
+
+.Header-search-form {
+  border: 2px solid #0000;
+  border-radius: 4px;
+  background: linear-gradient(45deg, rgba(245, 185, 20, 0.7), #0000);
+}
+
+.Header-search-input {
+  flex: 4;
+  padding: 8px 20px;
   box-sizing: border-box;
-  width: 25vw;
   font-size: 16px;
-  transition: all 0.5s ease-in-out;
   border: 1px solid transparent;
   outline: none;
   border-radius: 4px;
-}
-.Search-bar:focus {
-  border: 1px solid white;
-  width: 30vw;
+
+  background-color: #333;
+  width: 15vw;
+  box-shadow: 0 0 0.3em 0.2em #0003 inset;
   transition: all 0.5s ease-in-out;
 }
+.Header-search-input:focus {
+  width: 25vw;
+}
 
-.Log-out-btn {
-  /* flex: 1; */
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: 4px;
+.Header-logout {
   margin: 0 0 0 60px;
   width: 120px;
+  height: 36px;
+  background: linear-gradient(45deg, rgba(245, 185, 20, 0.5), #0000);
+  border-radius: 4px;
+
+  box-shadow: 0 0.5em 0.5em -0.4em #0000;
+  border: 2px solid #0000;
+  transition: all 0.7s ease;
+}
+
+.Header-logout:hover {
+  box-shadow: 0 0.5em 0.5em -0.4em #0007;
+  border: 2px solid #0003;
+  transform: translateY(-0.25em);
+}
+
+.Header-logout-btn {
+  width: 100%;
+  height: 100%;
   font-size: 16px;
-  color: black;
+  color: #333;
   letter-spacing: 2px;
   cursor: pointer;
   text-transform: uppercase;
-  transition: all 0.5s ease;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+
+  background-color: #ae8000;
+  box-shadow: 0 0 0.3em 0.2em #0003 inset;
+  transition: all 0.7s ease;
 }
-.Log-out-btn:hover {
-  border: 1px solid black;
-  box-shadow: 0 0.5em 0.5em -0.4em black;
-  transform: translateY(-0.25em);
+.Header-logout-btn:hover {
+  box-shadow: 0 0 0.3em 0.2em #0000 inset;
+  background-color: #0000;
+}
+
+@media only screen and (max-width: 900px) {
+  .Header h1 {
+    font-size: 32px;
+  }
+
+  .Header-search-input {
+    width: 20vw;
+  }
+
+  .Header-logout {
+    margin: 0 0 0 30px;
+    width: 100px;
+  }
+  .Header-logout-btn {
+    font-size: 16px;
+
+    letter-spacing: 1px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .Header {
+    padding: 15px;
+  }
+  .Header-logout {
+    margin: 0 0 0 10px;
+    width: 90px;
+  }
+  .Header-logout-btn {
+    font-size: 14px;
+
+    letter-spacing: 1px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .Header h1 {
+    font-size: 26px;
+  }
+
+  .Header-search-input {
+    width: 25vw;
+  }
+  .Header-search-input:focus {
+    width: 40vw;
+  }
+
+  .Header-logout {
+    width: 35px;
+  }
+  .Header-logout-btn {
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
 }

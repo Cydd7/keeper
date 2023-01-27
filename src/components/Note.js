@@ -12,7 +12,7 @@ function Note({ id, title, content, onEditing, onDeleting, open }) {
       <div className="Note-options">
         <button className="Note-edit" onClick={onEditing}>
           <img
-            src={require("../Media/edit_white.png")}
+            src={require("../assets/images/edit_white.png")}
             alt={"edit"}
             style={{
               height: "19px",
@@ -22,7 +22,7 @@ function Note({ id, title, content, onEditing, onDeleting, open }) {
         </button>
         <button className="Note-delete" onClick={onDeleting}>
           <img
-            src={require("../Media/del_white.png")}
+            src={require("../assets/images/del_white.png")}
             alt={"delete"}
             style={{
               height: "17px",

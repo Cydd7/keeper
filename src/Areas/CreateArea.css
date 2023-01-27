@@ -19,6 +19,7 @@
   /* Font choose */
   font-size: 16px;
 }
+
 .Note-form-editing {
   width: 100%;
   min-height: 60vh;
@@ -111,4 +112,10 @@
 
 .Note-form-btn:hover {
   background-color: rgba(128, 128, 128, 0.3);
+}
+
+@media only screen and (max-width: 700px) {
+  .Note-form {
+    width: 60%;
+  }
 }

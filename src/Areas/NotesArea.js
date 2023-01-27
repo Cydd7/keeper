@@ -1,19 +1,33 @@
 import React, { useEffect, useState } from "react";
 import "./NotesArea.css";
 import Note from "../components/Note";
-import { handleDelete, handleEdit } from "../components/Utils";
+import { handleDelete, handleEditSubmit } from "../components/Utils";
 import CreateArea from "./CreateArea";
 import Modal from "react-modal";
 import { initMasonry, selectMasonry } from "../features/masonrySlice";
 import { useDispatch, useSelector } from "react-redux";
-var Masonry = require("masonry-layout");
+// var Masonry = require("masonry-layout");
 
-function NotesArea({ n, sn, l, sl, editNote, setEditNote, user }) {
+function NotesArea({
+  msnry,
+  createNote,
+  setCreateNote,
+  notesList,
+  setNotesList,
+  editNote,
+  setEditNote,
+  user,
+}) {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [layoutState, setLayoutState] = useState(false);
-  const masonryChange = useSelector(selectMasonry);
+  const [visible, setVisible] = useState(false);
+  // const masonryChange = useSelector(selectMasonry);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    setVisible(true);
+  }, []);
+
+  // ! Modal
   Modal.setAppElement("#root");
   const customModalStyles = {
     overlay: {
@@ -37,67 +51,85 @@ function NotesArea({ n, sn, l, sl, editNote, setEditNote, user }) {
     // references are now sync'd and can be accessed.
   }
   function closeModal() {
-    const k = l.filter((n) => {
-      return n.id === Modal.noteData;
+    const k = notesList.filter((createNote) => {
+      return createNote.id === Modal.noteData;
     });
     if (editNote.title !== k[0].title || editNote.content !== k[0].content) {
-      handleEdit(user.uid, Modal.noteData, sl, l, editNote, setEditNote);
+      handleEditSubmit(
+        user.uid,
+        Modal.noteData,
+        setNotesList,
+        notesList,
+        editNote,
+        setEditNote
+      );
     }
     setIsOpen(false);
     const time = new Date().getTime();
     dispatch(initMasonry(time));
   }
 
-  // Initializing masonry
-  var msnry = new Masonry(".grid", {
-    columnWidth: 0,
-    itemSelector: ".Note",
-    fitWidth: true,
-    initLayout: { layoutState },
-    gutter: 0,
-  });
+  // ! Masonry
 
   function reloadMasonry() {
     msnry.layout();
     msnry.reloadItems();
   }
 
-  // Forcing masonry layout on starting website
+  // Forcing masonry layout when NotesArea mounts
+  // *This will only trigger when msnry is changed from null -> Masonry
+
   useEffect(() => {
-    const int = setInterval(() => {
-      setLayoutState(true);
-      msnry.layout();
-      msnry.reloadItems();
-    }, 1000);
-    setTimeout(() => {
-      clearInterval(int);
-    }, 5000);
-  }, []);
+    // if (msnry && notesList !== []) {
+    //   // msnry.layout();
+    //   // msnry.reloadItems();
+    //   if (notesList !== []) {
+    //     setVisible(true);
+    //     console.log("called", notesList);
+    //   }
+    //   const int = setInterval(() => {
+    //     msnry.layout();
+    //     msnry.reloadItems();
+    //   }, 1000);
+    //   setTimeout(() => {
+    //     clearInterval(int);
+    //   }, 3000);
+    //   function out() {
+    //     console.log("layout is complete");
+    //   }
+    //   console.log("msnry: ", msnry);
+    //   // Adding event listener for completing layout
+    //   msnry.on("layoutComplete", out);
+    //   return () => {
+    //     // Removing event listener for completing layout
+    //     msnry.off("layoutComplete", out);
+    //   };
+    // }
+  }, [msnry, notesList]);
 
-  // Event listener for completing layout
-  msnry.on("layoutComplete", function () {
-    // console.log("layout is complete");
-    // console.log("After Layout: ", msnry);
-  });
+  // // Runs whenever search bar is updated
+  // useEffect(() => {
+  //   console.log("msnry: ", msnry);
+  //   if (msnry) {
+  //     const int = setInterval(() => {
+  //       msnry.layout();
+  //       msnry.reloadItems();
+  //     }, 500);
+  //     setTimeout(() => {
+  //       clearInterval(int);
+  //     }, 3000);
+  //   }
+  // }, [masonryChange, msnry]);
 
-  // Runs whenever search bar is updated
-  useEffect(() => {
-    if (msnry) {
-      const int = setInterval(() => {
-        msnry.layout();
-        msnry.reloadItems();
-      }, 500);
-      setTimeout(() => {
-        clearInterval(int);
-      }, 3000);
-    }
-  }, [masonryChange]);
-
-  // console.log("n: ", n);
+  // console.log("createNote: ", createNote);
   // console.log("editnote: ", editNote);
 
   return (
-    <div>
+    <div
+      className={`NotesArea ${
+        visible ? "NotesArea-visible" : "NotesArea-invisible"
+      }`}
+    >
       <div>
         <Modal
           isOpen={modalIsOpen}
@@ -107,10 +139,10 @@ function NotesArea({ n, sn, l, sl, editNote, setEditNote, user }) {
           contentLabel="Example Modal"
         >
           <CreateArea
-            n={n}
-            sn={sn}
-            l={l}
-            sl={sl}
+            createNote={createNote}
+            setCreateNote={setCreateNote}
+            notesList={notesList}
+            setNotesList={setNotesList}
             editNote={editNote}
             setEditNote={setEditNote}
             user={user}
@@ -120,24 +152,30 @@ function NotesArea({ n, sn, l, sl, editNote, setEditNote, user }) {
         </Modal>
       </div>
 
-      {/* <input type="button" value="Reload" onClick={reloadMasonry} /> */}
+      <div className="NotesArea-reload-bar">
+        <button className="NotesArea-btn" onClick={reloadMasonry}>
+          <i className="fa fa-refresh light"></i>
+        </button>
+      </div>
 
       <div className="grid">
-        {l.map((n, index) => {
+        {notesList.map((createNote, index) => {
           return (
             <Note
               key={index}
-              id={n.id}
-              title={n.title}
-              content={n.content}
-              onEditing={(l) => {
-                openModal(n.id);
+              id={createNote.id}
+              title={createNote.title}
+              content={createNote.content}
+              onEditing={() => {
+                openModal(createNote.id);
               }}
-              onDeleting={() => handleDelete(user.uid, n.id, sl, l)}
+              onDeleting={() =>
+                handleDelete(user.uid, createNote.id, setNotesList, notesList)
+              }
               open={() => {
-                openModal(n.id);
-                const a = l.filter((x) => {
-                  return x.id == n.id;
+                openModal(createNote.id);
+                const a = notesList.filter((x) => {
+                  return x.id === createNote.id;
                 });
                 console.log("t: ", a[0].title);
                 console.log("c: ", a[0].content);

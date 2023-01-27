@@ -1,62 +1,63 @@
 import React, { useState, useEffect } from "react";
-import { onSnapshot, collection, query, orderBy } from "firebase/firestore";
-import db from "../firebase";
+import { useSelector } from "react-redux";
+
 import Header from "../Areas/Header";
 import Footer from "../Areas/Footer";
 import CreateArea from "../Areas/CreateArea";
 import NotesArea from "../Areas/NotesArea";
-import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
 import "./HomeScreen.css";
+import { settingNotesList } from "../components/Utils";
+var Masonry = require("masonry-layout");
 
 function HomeScreen() {
   //State of note and list of notes
-  const [n, sn] = useState({ title: "", content: "" });
-  const [l, sl] = useState([]);
+  const [createNote, setCreateNote] = useState({ title: "", content: "" });
+  const [notesList, setNotesList] = useState([]);
   const [list, setList] = useState([]);
   const [editNote, setEditNote] = useState({ title: "", content: "" });
   const user = useSelector(selectUser);
+  const [msnry, setMsnry] = useState(null);
 
-  // const [isNoteOpen, setIsNoteOpen] = useState(false);
+  console.log("NotesList: ", notesList);
 
   useEffect(() => {
-    const q = query(
-      collection(db, `users/${user.uid}/notes`),
-      orderBy("createdTimestamp", "desc")
-    );
-    onSnapshot(q, (snapshot) => {
-      setList(
-        snapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }))
+    settingNotesList(user, setList, setNotesList);
+  }, [user]);
+
+  useEffect(() => {
+    // When notes are loaded initiate masonry
+    if (notesList !== []) {
+      setMsnry(
+        new Masonry(".grid", {
+          columnWidth: 0,
+          itemSelector: ".Note",
+          fitWidth: true,
+          gutter: 0,
+        })
       );
-      return sl(
-        snapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }))
-      );
-    });
-  }, []);
+    }
+    return () => {};
+  }, [notesList]);
 
   return (
     <div className="HomeScreen">
-      <Header n={n} sn={sn} l={l} sl={sl} list={list} setList={setList} />
+      <Header msnry={msnry} setNotesList={setNotesList} list={list} />
       <CreateArea
-        n={n}
-        sn={sn}
-        l={l}
-        sl={sl}
+        createNote={createNote}
+        setCreateNote={setCreateNote}
+        notesList={notesList}
+        setNotesList={setNotesList}
         editNote={editNote}
         setEditNote={setEditNote}
         user={user}
       />
       <NotesArea
-        n={n}
-        sn={sn}
-        l={l}
-        sl={sl}
+        msnry={msnry}
+        createNote={createNote}
+        setCreateNote={setCreateNote}
+        notesList={notesList}
+        setNotesList={setNotesList}
         editNote={editNote}
         setEditNote={setEditNote}
         user={user}

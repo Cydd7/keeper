@@ -1,20 +1,18 @@
 import React, { useEffect, useRef } from "react";
 import "./CreateArea.css";
-import { handleEdit, handleSubmit } from "../components/Utils";
+import { handleSubmit } from "../components/Utils";
 
 function CreateArea({
-  n,
-  sn,
-  l,
-  sl,
+  createNote,
+  setCreateNote,
+  notesList,
+  setNotesList,
   editNote,
   setEditNote,
   user,
   editing,
   closeModal,
 }) {
-  // console.log("l: ", l);
-  // console.log("n: ", n);
   const titleRef = useRef("");
   const contentRef = useRef("");
 
@@ -28,14 +26,14 @@ function CreateArea({
         [name]: value,
       }));
     } else {
-      sn((pv) => ({
+      setCreateNote((pv) => ({
         ...pv,
         [name]: value,
       }));
     }
   }
 
-  // To keep the sync between n state and note form's content
+  // To keep the sync between createNote state and note form's content
   useEffect(() => {
     if (editing) {
       if (editNote.title === "" && editNote.content === "") {
@@ -43,11 +41,11 @@ function CreateArea({
         contentRef.current.innerHTML = "";
         console.log("Empty");
       }
-    } else if (n.title === "" && n.content === "") {
+    } else if (createNote.title === "" && createNote.content === "") {
       titleRef.current.innerHTML = "";
       contentRef.current.innerHTML = "";
     }
-  }, [n, editNote]);
+  }, [createNote, editNote]);
 
   useEffect(() => {
     if (editing) {
@@ -61,7 +59,9 @@ function CreateArea({
       <div className="Note-form-title">
         {editing
           ? !editNote.title && <div className="Note-form-title-back">Title</div>
-          : !n.title && <div className="Note-form-title-back">Title</div>}
+          : !createNote.title && (
+              <div className="Note-form-title-back">Title</div>
+            )}
         <div
           ref={titleRef}
           className="Note-form-title-create"
@@ -77,7 +77,7 @@ function CreateArea({
           ? !editNote.content && (
               <div className="Note-form-content-back">Take a note...</div>
             )
-          : !n.content && (
+          : !createNote.content && (
               <div className="Note-form-content-back">Take a note...</div>
             )}
 
@@ -99,7 +99,13 @@ function CreateArea({
           if (editing) {
             closeModal();
           } else {
-            handleSubmit(user.uid, n, l, sn, sl);
+            handleSubmit(
+              user.uid,
+              createNote,
+              notesList,
+              setCreateNote,
+              setNotesList
+            );
           }
         }}
         type="button"

@@ -1,61 +1,87 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { logout } from "../features/userSlice";
 import "./Header.css";
-import { initMasonry } from "../features/masonrySlice";
+import { initMasonry, closeMasonry } from "../features/masonrySlice";
 
 //Taking in states of note, list of notes and - as props in Header funtion.
-function Header({ n, sn, l, sl, list, setList, simple }) {
+function Header({ msnry, setNotesList, list, simple }) {
   // Using state for value of search bar
   const [sval, setSval] = useState("");
+  const [debouncedSval, setDebouncedSval] = useState("");
+
+  const searchInput = useRef(null);
+
   const dispatch = useDispatch();
 
-  // console.log("head msnry", msnry);
-
-  // This function gets triggered when search bar is updated.
+  // This function gets triggered when search bar is updated with a character.
   function update(event) {
     setSval(event.target.value);
-    Search(event.target.value, sl, l);
   }
 
-  // This functions filters 'list' variable
-  function Search(val) {
-    var a = list.filter(
-      (item) => item.title.search(val) >= 0 || item.content.search(val) >= 0
-    );
-    sl(a);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebouncedSval(sval);
+    }, 1000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [sval]);
 
-    dispatch(initMasonry(a));
-  }
+  useEffect(() => {
+    function search(val) {
+      if (list) {
+        var a = list.filter(
+          (item) => item.title.search(val) >= 0 || item.content.search(val) >= 0
+        );
+        setNotesList(a);
+        // dispatch(closeMasonry());
+        dispatch(initMasonry(a));
+      }
+    }
+    console.log("debounced search value: ", debouncedSval);
+    search(debouncedSval, list);
+  }, [debouncedSval, list, dispatch, setNotesList]);
 
   return (
-    <header>
+    <div className="Header">
       <h1>Keeper</h1>
       {!simple && (
         <>
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form
+            className="Header-search-form"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <input
+              ref={searchInput}
               onChange={update}
               onSubmit={update}
               name="Search-bar"
               value={sval}
-              className="Search-bar"
+              className="Header-search-input"
               placeholder="Search"
             />
           </form>
-          <button
-            className="Log-out-btn"
-            onClick={() => {
-              dispatch(logout());
-              signOut(getAuth());
-            }}
-          >
-            Sign out
-          </button>
+
+          <div className="Header-logout">
+            <button
+              className="Header-logout-btn"
+              onClick={() => {
+                dispatch(logout());
+                signOut(getAuth());
+              }}
+            >
+              {window.innerWidth > 450 ? (
+                "Sign out"
+              ) : (
+                <i style={{ color: "#333" }} class="fa fa-power-off solid"></i>
+              )}
+            </button>
+          </div>
         </>
       )}
-    </header>
+    </div>
   );
 }
 

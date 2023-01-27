@@ -23,9 +23,68 @@
   border: 3px solid firebrick;
 } */
 
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.NotesArea {
+  width: 100%;
+  min-height: 100%;
+  opacity: 0;
+}
+
+.NotesArea-invisible {
+  opacity: 0;
+}
+
+.NotesArea-visible {
+  animation: fadein 2s;
+  opacity: 1;
+}
+
+.NotesArea-reload-bar {
+  position: relative;
+  height: 5vw;
+}
+
+.NotesArea-btn {
+  position: absolute;
+  right: 10vw;
+  /* background-color: rgba(128, 128, 128, 0.3); */
+  background-color: transparent;
+  border: 0;
+  border-radius: 50%;
+  width: 1vw;
+  height: 1vw;
+  cursor: pointer;
+  /* background: radial-gradient(circle at 10px, #f5b914, 10px, #f5b914, 20px); */
+}
+
+.NotesArea-btn > i {
+  /* color: #f5b914; */
+  color: #ccc;
+  font-size: 2.2vw;
+  -webkit-text-stroke: 8px rgba(128, 128, 128, 0.3);
+}
+
 .grid {
   /* width: 100%; */
   width: 90vw;
   min-height: 100px;
   margin: 0 auto;
+}
+
+@media only screen and (max-width: 800px) {
+  .NotesArea-btn > i {
+    font-size: 25px;
+  }
+  .NotesArea-reload-bar {
+    position: relative;
+    height: 40px;
+  }
 }

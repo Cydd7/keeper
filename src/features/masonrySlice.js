@@ -19,4 +19,6 @@ export const { initMasonry, closeMasonry } = masonrySlice.actions;
 
 export const selectMasonry = (state) => state.masonry.masonry;
 
+console.log(masonrySlice.reducer);
+
 export default masonrySlice.reducer;

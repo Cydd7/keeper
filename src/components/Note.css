@@ -2,10 +2,10 @@
 
 .Note {
   position: relative;
-  width: 200px;
+  width: 20vw;
   margin: 8px;
   padding: 10px 10px 40px 10px;
-  background: transparent;
+  background: hsl(225, 6%, 13%);
   border-radius: 7px;
   border: 1px solid rgba(255, 255, 255, 0.35);
   cursor: pointer;
@@ -18,7 +18,7 @@
   white-space: normal;
   word-wrap: break-word;
   overflow: hidden;
-  max-height: 100px;
+  max-height: 4.4rem;
 }
 .Note-main > p {
   font-size: 2rem;
@@ -26,7 +26,7 @@
   white-space: normal;
   word-wrap: break-word;
   overflow: hidden;
-  max-height: 300px;
+  max-height: 30.5rem;
 }
 
 .Note-options {
@@ -64,4 +64,22 @@
 .Note-delete:hover,
 .Note-edit:hover {
   background-color: rgba(128, 128, 128, 0.3);
+}
+
+@media only screen and (max-width: 900px) {
+  .Note {
+    width: 25vw;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .Note {
+    width: 40vw;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .Note {
+    width: 80vw;
+  }
 }

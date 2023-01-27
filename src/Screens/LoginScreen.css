@@ -1,3 +1,24 @@
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+input:-webkit-autofill:nth-child(2) {
+  -webkit-text-fill-color: #fff !important;
+  transition: background-color 0.5s ease-in-out 0s;
+  transition-delay: 5000s;
+}
+
+@keyframes scalein {
+  0% {
+    opacity: 0;
+    transform: scale(1.4);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .LoginScreen {
   width: 100%;
   height: 100vh;
@@ -22,20 +43,24 @@
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
+
+  animation: scalein 1s cubic-bezier(0.2, 0.6, 0.2, 1);
 }
 
 .Login-box h2 {
-  font-size: 25px;
+  font-size: 20px;
   margin: 0 0 30px;
   padding: 0;
-  color: #fff;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #ccc;
   text-align: center;
 }
 
 .Login-icon {
-  /* block-size: 10em; */
   display: inline-block;
-  fill: #61dafb;
+  /* fill: #61dafb; */
+  fill: #ccc;
   inline-size: 14px;
   vertical-align: middle;
   padding: 1vw 1vw 1vw 0;
@@ -76,10 +101,9 @@
 .Login-box-btn {
   position: relative;
   display: block;
-
-  width: 100%;
+  width: 40%;
   font-size: 16px;
-  margin: 30px auto 0px auto;
+  margin: 30px auto 15px auto;
   padding: 10px;
   outline: none;
   border: 1px solid transparent;
@@ -101,10 +125,23 @@
 .Login-box-text {
   text-align: center;
   font-size: 14px;
+  color: #ccc;
 }
 .Login-box-text > span {
   color: gray;
   text-decoration: underline;
   cursor: pointer;
   font-style: italic;
+}
+
+@media only screen and (max-width: 600px) {
+  .Login-box {
+    width: 80%;
+  }
+  .Login-box-btn {
+    width: 70%;
+    border: 1px solid rgba(245, 186, 19, 0.7);
+    box-shadow: 0 0.5em 0.5em -0.4em #f5ba13;
+    transform: translateY(-0.25em);
+  }
 }
