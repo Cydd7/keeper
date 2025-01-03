@@ -18,26 +18,41 @@ import db from "../firebase";
 
 export const authenticateUser = (e, task, emailRef, passwordRef) => {
   e.preventDefault();
-  if (task === "register") {
-    createUserWithEmailAndPassword(
-      getAuth(),
-      emailRef.current.value,
-      passwordRef.current.value
-    ).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorCode + errorMessage);
-    });
-  } else if (task === "signin") {
-    signInWithEmailAndPassword(
-      getAuth(),
-      emailRef.current.value,
-      passwordRef.current.value
-    ).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorCode + errorMessage);
-    });
+  if(emailRef.current.value.length!==0 && passwordRef.current.value.length!==0){
+    if (task === "register") {
+      createUserWithEmailAndPassword(
+        getAuth(),
+        emailRef.current.value,
+        passwordRef.current.value
+      ).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if(errorCode === 'auth/email-already-in-use'){
+          alert("User already exists with the email entered");
+        }
+        else{
+          alert(errorMessage)
+        }
+      });
+    } else if (task === "signin") {
+      signInWithEmailAndPassword(
+        getAuth(),
+        emailRef.current.value,
+        passwordRef.current.value
+      ).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if(errorCode === 'auth/user-not-found'){
+          alert('User does not exist')
+        }
+        else{
+          alert(errorMessage);
+        }
+      });
+    }
+  }
+  else{
+    alert("Please enter Email and Password")
   }
 };
 
