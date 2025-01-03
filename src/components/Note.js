@@ -10,7 +10,7 @@ function Note({ id, title, content, onEditing, onDeleting, open }) {
       </div>
 
       <div className="Note-options">
-        <button className="Note-edit" onClick={onEditing}>
+        {/* <button className="Note-edit" onClick={onEditing}>
           <img
             src={require("../assets/images/edit_white.png")}
             alt={"edit"}
@@ -19,7 +19,7 @@ function Note({ id, title, content, onEditing, onDeleting, open }) {
               width: "19px",
             }}
           />
-        </button>
+        </button> */}
         <button className="Note-delete" onClick={onDeleting}>
           <img
             src={require("../assets/images/del_white.png")}

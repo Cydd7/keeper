@@ -13,27 +13,28 @@
 }
 .Note-main > h1 {
   font-size: 2.2rem;
+  line-height: 2.4rem;
   font-weight: 600;
-  padding: 0 0 10px 0;
+  margin: 0 0 10px 0;
   white-space: normal;
   word-wrap: break-word;
   overflow: hidden;
-  max-height: 4.4rem;
+  max-height: 4.8rem;
 }
 .Note-main > p {
   font-size: 2rem;
-  padding-bottom: 10px;
+  margin-bottom: 10px;
   white-space: normal;
   word-wrap: break-word;
   overflow: hidden;
-  max-height: 30.5rem;
+  max-height: 30rem;
 }
 
 .Note-options {
   position: absolute;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: end;
   width: 90%;
 }
 

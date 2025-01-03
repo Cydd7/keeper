@@ -44,7 +44,7 @@ input:-webkit-autofill:nth-child(2) {
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 
-  animation: scalein 1s cubic-bezier(0.2, 0.6, 0.2, 1);
+  animation: scalein 0.5s cubic-bezier(0.2, 0.6, 0.2, 1);
 }
 
 .Login-box h2 {

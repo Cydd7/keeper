@@ -23,7 +23,7 @@ function Header({ msnry, setNotesList, list, simple }) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setDebouncedSval(sval);
-    }, 1000);
+    }, 300);
     return () => {
       clearTimeout(timeout);
     };
@@ -32,8 +32,9 @@ function Header({ msnry, setNotesList, list, simple }) {
   useEffect(() => {
     function search(val) {
       if (list) {
+        let lowerCaseVal = val.toLowerCase()
         var a = list.filter(
-          (item) => item.title.search(val) >= 0 || item.content.search(val) >= 0
+          (item) => item.title?.toLowerCase().search(lowerCaseVal) >= 0 || item.content?.toLowerCase().search(lowerCaseVal) >= 0
         );
         setNotesList(a);
         // dispatch(closeMasonry());

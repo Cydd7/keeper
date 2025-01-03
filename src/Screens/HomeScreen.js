@@ -27,7 +27,7 @@ function HomeScreen() {
 
   useEffect(() => {
     // When notes are loaded initiate masonry
-    if (notesList !== []) {
+    if (notesList.length!==0) {
       setMsnry(
         new Masonry(".grid", {
           columnWidth: 0,

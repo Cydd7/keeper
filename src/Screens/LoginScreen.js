@@ -21,6 +21,7 @@ function LoginScreen() {
               type="email"
               placeholder="Email address"
               required
+              defaultValue={"test@gmail.com"}
             />
           </div>
           <div className="User-box">
@@ -30,6 +31,7 @@ function LoginScreen() {
               type="password"
               placeholder="Password"
               required
+              defaultValue={"test@123"}
             />
           </div>
           <button
